@@ -46,7 +46,6 @@ function App() {
   const messageTimeoutRef = useRef(null);
   const messageHideRef = useRef(null);
   const lastKindRef = useRef(null);
-
   useEffect(() => {
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     setTheme(mql.matches ? 'dark' : 'light');
@@ -105,8 +104,8 @@ function App() {
         setDialog(prev => {
           const prevIdx = prev ? prev.index : -1;
           const { item, index } = pickRandom(farmerLines, prevIdx);
-          clearTimeout(messageHideRef.current);
-          messageHideRef.current = setTimeout(() => setDialog(null), 7000);
+          // clearTimeout(messageHideRef.current);
+          // messageHideRef.current = setTimeout(() => setDialog(null), 7000);
           return { text: item, index };
         });
       } else {
@@ -114,8 +113,8 @@ function App() {
         setFact(prev => {
           const prevIdx = prev ? prev.index : -1;
           const { item, index } = pickRandom(riceFacts, prevIdx);
-          clearTimeout(messageHideRef.current);
-          messageHideRef.current = setTimeout(() => setFact(null), 10000);
+          // clearTimeout(messageHideRef.current);
+          // messageHideRef.current = setTimeout(() => setFact(null), 10000);
           return { text: item, index };
         });
       }
@@ -148,7 +147,9 @@ function App() {
     const total = durationMin * 60;
     setTotalSeconds(total);
     setSecondsLeft(total);
-    setDialog(null);
+    
+    const {item, index} = pickRandom(farmerLines, -1);
+    setDialog({text: item, index});
     setFact(null);
     lastKindRef.current = null;
     setBundleBounce(-1);
